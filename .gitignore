@@ -1,0 +1,333 @@
+package Jogo;
+
+import java.util.Random;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+public class Prova {
+	public static void main (String[] args){
+		int i = 0;
+		int j = 0;
+		String tabuleiro[][] = new String[15][15]; //tabuleiro montado com laço for
+		String tabuleiro2[][] = {{"X", "X", "X", "X", "X", "X", "-", "-", "-", "X", "X", "X", "X", "X", "X"},
+								 {"X", "-", "-", "-", "-", "X", "-", "%", "%", "X", "-", "-", "-", "-", "X"},
+								 {"X", "-", "1", "1", "-", "X", "-", "%", "-", "X", "-", "2", "2", "-", "X"},
+								 {"X", "-", "1", "1", "-", "X", "-", "%", "-", "X", "-", "2", "2", "-", "X"},
+								 {"X", "-", "-", "-", "-", "X", "-", "%", "-", "X", "-", "-", "-", "-", "X"},
+								 {"X", "X", "X", "X", "X", "X", "-", "%", "-", "X", "X", "X", "X", "X", "X"},
+								 {"-", "+", "-", "-", "-", "-", "-", "%", "-", "-", "-", "-", "-", "-", "-"},
+								 {"-", "+", "+", "+", "+", "+", "+", "X", "*", "*", "*", "*", "*", "*", "-"},
+								 {"-", "-", "-", "-", "-", "-", "-", "&", "-", "-", "-", "-", "-", "*", "-"},
+								 {"X", "X", "X", "X", "X", "X", "-", "&", "-", "X", "X", "X", "X", "X", "X"},
+								 {"X", "-", "-", "-", "-", "X", "-", "&", "-", "X", "-", "-", "-", "-", "X"},
+								 {"X", "-", "4", "4", "-", "X", "-", "&", "-", "X", "-", "3", "3", "-", "X"},
+								 {"X", "-", "4", "4", "-", "X", "-", "&", "-", "X", "-", "3", "3", "-", "X"},
+								 {"X", "-", "-", "-", "-", "X", "&", "&", "-", "X", "-", "-", "-", "-", "X"},
+								 {"X", "X", "X", "X", "X", "X", "-", "-", "-", "X", "X", "X", "X", "X", "X"}};
+		//tabuleiro montado manualmente
+
+		
+		for(i = 0; i < 15; i++){
+			for(j = 0; j < 15; j++){
+				tabuleiro[i][j] = "-";
+			}
+		}
+		
+		for(i = 0; i < 6; i++){
+			tabuleiro[0][i] = "X";
+			tabuleiro[5][i] = "X";
+			tabuleiro[0][9 + i] = "X";
+			tabuleiro[5][9 + i] = "X";
+			tabuleiro[9][i] = "X";
+			tabuleiro[14][i] = "X";
+			tabuleiro[9][9 + i] = "X";
+			tabuleiro[14][9 + i] = "X";
+		}
+		
+		for(i = 0; i < 6; i++){
+			tabuleiro[i][0] = "X";
+			tabuleiro[i][5] = "X";
+			tabuleiro[9 + i][0] = "X";
+			tabuleiro[9 + i][5] = "X";
+			
+			tabuleiro[i][9] = "X";
+			tabuleiro[i][14] = "X";
+			tabuleiro[9 + i][9] = "X";
+			tabuleiro[9 + i][14] = "X";
+		}
+		
+		for(i = 0; i < 2; i++){
+			tabuleiro[2][2 + i] = "1";
+			tabuleiro[3][2 + i] = "1";
+			tabuleiro[2][11 + i] = "2";
+			tabuleiro[3][11 + i] = "2";
+			tabuleiro[11][2 + i] = "3";
+			tabuleiro[12][2 + i] = "3";
+			tabuleiro[11][11 + i] = "4";
+			tabuleiro[12][11 + i] = "4";
+		}
+		
+		for(i = 0; i < 6; i++){
+			tabuleiro[7][1 + i] = "+";
+			tabuleiro[7][8 + i] = "*";
+			tabuleiro[1 + i][7] = "%";
+			tabuleiro[8 + i][7] = "&";
+		}
+		
+		tabuleiro[6][1] = "+";
+		tabuleiro[8][13] = "*";
+		tabuleiro[1][8] = "%";
+		tabuleiro[13][6] = "&";
+			
+		for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+			for(j = 0; j < 15; j++){
+				System.out.print(tabuleiro2[i][j] + " ");
+			}
+			System.out.println("");
+		}
+		
+		
+		
+		int movimentacaoExterna1[][] = {{6, 6, 6 ,6 ,6 ,6, 5, 4 ,3 ,2 ,1, 0, 0, 0, 1, 2, 3, 4, 5 ,6, 6, 6, 6, 6,
+										6, 6, 7, 8, 8, 8, 8, 8, 8, 8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 12, 11, 10,
+										9, 8, 8, 8, 8, 8, 8, 8 ,7, 6, 6, 7, 7, 7, 7, 7, 7},
+										{1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8, 8, 9, 10, 11,
+										12, 13, 14, 14, 14, 13, 12, 11, 10, 9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6,
+										6, 6, 6, 5, 4, 3, 2, 1, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6 }};
+		
+		int movimentacaoExterna2[][] = {{1, 2, 3, 4, 5 ,6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8, 8, 9, 10, 11,
+										12, 13, 14, 14, 14, 13, 12, 11, 10,	9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6,
+										6, 6, 6, 5, 4, 3, 2, 1, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6}, 
+										{8, 8, 8, 8, 8, 8, 8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 12, 11, 10, 9, 8,
+										8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 5, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3,
+										4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 7, 7, 7, 7, 7, 7}};
+		
+		int movimentacaoExterna3[][] = {{8, 8, 8, 8, 8, 8, 8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 12, 11, 10, 9, 8,
+										8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 5, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3,
+										4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 7, 7, 7, 7, 7, 7},
+										{13, 12, 11, 10, 9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 5, 4,
+										3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8,
+										8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 13, 12, 11, 10, 9, 8}};
+		
+		int movimentacaoExterna4[][] = {{13, 12, 11, 10, 9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 5, 4,
+										3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8,
+										8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 13, 12, 11, 10, 9, 8},
+										{6, 6, 6, 6, 6, 6, 5, 4, 3, 2, 1, 0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6,
+										6, 7, 8, 8, 8, 8, 8, 8, 8, 9, 10, 11, 12, 13, 14, 14, 14, 13, 12, 11, 10, 9,
+										8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 7, 7, 7, 7, 7, 7}};
+		//	os números contidos no primeiro par de chaves representam as linhas da matriz e os contidos no segundo par 
+		//	representam as colunas. Cada número se relaciona com o seu valor correspodente no outro par. ou seja,
+		// A coluna 1 da linha 0 se relaciona com a coluna 1 da linha 1 e assim sucessivamente. Os números estão em
+		// sequência da ordem dos movimentos do tabuleiro.
+		
+		// -1 porque quando o as posições são contadas a partir da posição 0, e se sair o valor 1, o contador vai receber
+		// o valor 1 e retornando o valor da segunda coluna, e não da primeira. o "-1" é para "compensar" oa acréścimo de 
+		// uma unidade
+		int contadorDeMovimentos1 = 0;
+		int contadorDeMovimentos2 = 0;
+		int contadorDeMovimentos3 = 0;
+		int contadorDeMovimentos4 = 0;
+		Scanner scanner = new Scanner (System.in);
+		Random random = new Random();
+		int valorDoDado = 0; // valor do dado
+		int tresJogadasMinimas = 0;
+		boolean saidaInicial1 = true; // variáveis booleanas para verificar se o jogador conseguiu tirar 1 ou 6 do dado
+		boolean saidaInicial2 = true;
+		boolean saidaInicial3 = true;
+		boolean saidaInicial4 = true;
+		
+		JOptionPane.showMessageDialog(null, "Jogador 1");
+		JOptionPane.showMessageDialog(null, "Jogar Dado");
+		valorDoDado = random.nextInt(6) + 1;
+		JOptionPane.showMessageDialog(null, valorDoDado);
+		
+		if(!saidaInicial1){ // é iniciada com valor true. Como há a "!", ele ai fazer o oposto de true (false) e não irá entrar no if
+				contadorDeMovimentos1 += valorDoDado; // o valor do contador vai ser acrescido pelo valor do dado, indicando o avanço na posição do tabuleiro
+				tabuleiro2[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
+				
+				//	tabuleiro2[X][Y]
+				// 	X == LINHA 0 E COLUNA *CONTADOR DE MOVIMENTOS 1* DA MATRIZ DE MOVIMENTAÇÃO
+				// Y == LINHA 1 E COLUNA *CONTADOR DE MOVIMENTOS 1* DA MATRIZ DE MOVIMENTAÇÃODA MATRIZ DE MOVIMENTAÇÃO
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+				}
+				System.out.println("");
+				}
+			} else{
+				JOptionPane.showMessageDialog(null, "Número diferente de 1 ou 6");
+				JOptionPane.showMessageDialog(null, "Próximo Jogador");
+		}
+		
+		if(saidaInicial1){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				JOptionPane.showMessageDialog(null, "Jogador 1 entrou no jogo");
+				tabuleiro2[6][0] = "1";
+				saidaInicial1 = false;
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			}
+		}
+			
+		JOptionPane.showMessageDialog(null, "Jogador 2");
+		JOptionPane.showMessageDialog(null, "Jogar Dado");
+		valorDoDado = random.nextInt(6) + 1;
+		JOptionPane.showMessageDialog(null, valorDoDado);
+		
+		if(!saidaInicial2){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				JOptionPane.showMessageDialog(null, "Jogador 2 entrou no jogo");
+				contadorDeMovimentos2 += valorDoDado;
+				tabuleiro2[movimentacaoExterna2[0][contadorDeMovimentos2]][movimentacaoExterna2[1][contadorDeMovimentos2]] = "2";
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			} else{
+				JOptionPane.showMessageDialog(null, "Número diferente de 1 ou 6");
+				JOptionPane.showMessageDialog(null, "Próximo Jogador");
+			}
+		}
+		
+		if(saidaInicial2){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				tabuleiro2[8][1] = "2";
+				saidaInicial1 = false;
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "Jogador 3");
+		JOptionPane.showMessageDialog(null, "Jogar Dado");
+		valorDoDado = random.nextInt(6) + 1;
+		JOptionPane.showMessageDialog(null, valorDoDado);
+		
+		if(!saidaInicial3){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				JOptionPane.showMessageDialog(null, "Jogador 3 entrou no jogo");
+				contadorDeMovimentos3 += valorDoDado;
+				tabuleiro2[movimentacaoExterna3[0][contadorDeMovimentos3]][movimentacaoExterna3[1][contadorDeMovimentos3]] = "3";
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			} else{
+				JOptionPane.showMessageDialog(null, "Número diferente de 1 ou 6");
+				JOptionPane.showMessageDialog(null, "Próximo Jogador");
+			}
+		}
+		
+		if(saidaInicial3){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				tabuleiro2[8][13] = "3";
+				saidaInicial1 = false;
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "Jogador 4");
+		JOptionPane.showMessageDialog(null, "Jogar Dado");
+		valorDoDado = random.nextInt(6) + 1;
+		JOptionPane.showMessageDialog(null, valorDoDado);
+		
+		if(!saidaInicial4){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				JOptionPane.showMessageDialog(null, "Jogador 4 entrou no jogo");
+				contadorDeMovimentos4 += valorDoDado;
+				tabuleiro2[movimentacaoExterna4[0][contadorDeMovimentos4]][movimentacaoExterna4[1][contadorDeMovimentos4]] = "4";
+				
+				System.out.println("");		
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Número diferente de 1 ou 6");
+				JOptionPane.showMessageDialog(null, "Próximo Jogador");
+			}
+		}
+		
+		if(saidaInicial4){
+			if((valorDoDado == 1) || (valorDoDado == 6)){
+				tabuleiro2[13][6] = "4";
+				saidaInicial1 = false;
+				
+				System.out.println("");
+				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
+					for(j = 0; j < 15; j++){
+						System.out.print(tabuleiro2[i][j] + " ");
+					}
+					System.out.println("");
+				}
+			}
+		}
+			
+		
+		
+		
+		
+		
+		
+		
+		
+	/*
+	  
+	if((tabuleiro2[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]].equals("2")) ||
+	   	(tabuleiro2[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]].equals("3")) ||
+	   	(tabuleiro2[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]].equals("4"))) {
+ 		tabuleiro2[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
+	} // para fazer a comparação se há alguma outra peça no local para onde a peça do Jogador 1 vai se mover
+	
+	if((tabuleiro2[movimentacaoExterna2[0][contadorDeMovimentos2]][movimentacaoExterna2[1][contadorDeMovimentos2]].equals("1")) ||
+	   		(tabuleiro2[movimentacaoExterna2[0][contadorDeMovimentos2]][movimentacaoExterna2[1][contadorDeMovimentos2]].equals("3")) ||
+	   		(tabuleiro2[movimentacaoExterna2[0][contadorDeMovimentos2]][movimentacaoExterna2[1][contadorDeMovimentos2]].equals("4"))) {
+		tabuleiro2[movimentacaoExterna2[0][contadorDeMovimentos2]][movimentacaoExterna2[1][contadorDeMovimentos2]] = "2";
+	} //para fazer a comparação se há alguma outra peça no local para onde a peça do Jogador 2 vai se mover
+	
+	if((tabuleiro2[movimentacaoExterna3[0][contadorDeMovimentos3]][movimentacaoExterna3[1][contadorDeMovimentos3]].equals("1")) ||
+			   	(tabuleiro2[movimentacaoExterna3[0][contadorDeMovimentos3]][movimentacaoExterna3[1][contadorDeMovimentos3]].equals("2")) ||
+			   	(tabuleiro2[movimentacaoExterna3[0][contadorDeMovimentos3]][movimentacaoExterna3[1][contadorDeMovimentos3]].equals("4"))) {
+			tabuleiro2[movimentacaoExterna3[0][contadorDeMovimentos3]][movimentacaoExterna3[1][contadorDeMovimentos3]] = "3";
+	} // para fazer a comparação se há alguma outra peça no local para onde a peça do Jogador 3 vai se mover
+	
+	if((tabuleiro2[movimentacaoExterna4[0][contadorDeMovimentos4]][movimentacaoExterna4[1][contadorDeMovimentos4]].equals("1")) ||
+			   	(tabuleiro2[movimentacaoExterna4[0][contadorDeMovimentos4]][movimentacaoExterna4[1][contadorDeMovimentos4]].equals("2")) ||
+			   	(tabuleiro2[movimentacaoExterna4[0][contadorDeMovimentos4]][movimentacaoExterna4[1][contadorDeMovimentos4]].equals("3"))) {
+		 	tabuleiro2[movimentacaoExterna4[0][contadorDeMovimentos4]][movimentacaoExterna4[1][contadorDeMovimentos4]] = "4";
+	} // para fazer a comparação se há alguma outra peça no local para onde a peça do Jogador 4 vai se mover
+	
+	 */
+	}
+}
