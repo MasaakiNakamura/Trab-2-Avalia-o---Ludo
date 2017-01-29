@@ -192,9 +192,12 @@ public class Prova {
 		JOptionPane.showMessageDialog(null, valorDoDado);
 		
 		if(contadorDePecasRetiradas1 != 0){ // é iniciada com valor false
-			if(valorDoDado == 1){
+			if(valorDoDado == 1){ //verifica se o valor do dado é igual a 1
 				if(JOptionPane.showConfirmDialog(null, "Deseja retirar uma peça do cemitério?", "", 0, 1) == 0){
+					//seleciona retirar uma peça do cemitério ou não 
 					if(contadorDePecasRetiradas1 == 1){
+						//comparação para saber quantas peças já foram retiradas do cemitério para substituir "+" no
+						//lugar da peça retirada e colocar "2" na posição inicial do tabuleiro e assim sucessivamente
 						tabuleiro[3][2] = "+";
 						tabuleiro[6][0] = "1";
 						
@@ -207,12 +210,16 @@ public class Prova {
 						tabuleiro[6][0] = "1";
 					}
 				}
-			} else if (valorDoDado == 6){
-				contadorDeMovimentosInicial1 = contadorDeMovimentos1;
-				contadorDeMovimentos1 += valorDoDado; // o valor do contador vai ser acrescido pelo valor do dado, indicando o avanço na posição do tabuleiro
+			} else if (valorDoDado == 6){//comparação para saber se o valor do dado é igual a 6
+				contadorDeMovimentosInicial1 = contadorDeMovimentos1; //atribui o valor antigo do dado para essa variável
+				contadorDeMovimentos1 += valorDoDado; // o valor do contador vai ser acrescido pelo valor do dado, indicando
+													  //o avanço na posição do tabuleiro (na matriz vetor de moviemntos)
 				tabuleiro[movimentacaoExterna1[0][contadorDeMovimentosInicial1]][movimentacaoExterna1[1][contadorDeMovimentosInicial1]] = "-";
+				//Substitui a posição atual por "-" (reestabecendo a formação normal do tabuleiro que é completa por "-" onde há a movimentação das peças)
 				tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
-				valorDoDado = random.nextInt(6) + 1;
+				//substitui a posição final por "1", atualizando a poisção nova da peça
+				//o mesmo ocorre com as outras peças
+				valorDoDado = random.nextInt(6) + 1; // gera um novo valor pro dado pois. como o valor 6 foi retirado, o jogador pode jogar novamente
 				System.out.println("");
 				
 				for(i = 0; i < 15; i++){ //serve para printar o tabuleiro		
@@ -229,13 +236,15 @@ public class Prova {
 				contadorDeMovimentosInicial1 = contadorDeMovimentos1;
 				contadorDeMovimentos1 += valorDoDado; // o valor do contador vai ser acrescido pelo valor do dado, indicando o avanço na posição do tabuleiro
 				tabuleiro[movimentacaoExterna1[0][contadorDeMovimentosInicial1]][movimentacaoExterna1[1][contadorDeMovimentosInicial1]] = "-";
-				tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
+				//mesma acontecimento acima
+				tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";//mesmo acontecimento acime
 			}
 			
-			contadorDeMovimentosInicial1 = contadorDeMovimentos1;
+			contadorDeMovimentosInicial1 = contadorDeMovimentos1;//mesmo acontecimento acima
 			contadorDeMovimentos1 += valorDoDado; // o valor do contador vai ser acrescido pelo valor do dado, indicando o avanço na posição do tabuleiro
 			tabuleiro[movimentacaoExterna1[0][contadorDeMovimentosInicial1]][movimentacaoExterna1[1][contadorDeMovimentosInicial1]] = "-";
-			tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
+			//mesmo acontecimento acima
+			tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";//mesmo acontecimento acima
 			
 			//	tabuleiro2[X][Y]
 			// 	X == LINHA 0 E COLUNA *CONTADOR DE MOVIMENTOS 1* DA MATRIZ DE MOVIMENTAÇÃO
@@ -252,7 +261,8 @@ public class Prova {
 			
 			System.out.println("");
 			
-		} else if((valorDoDado == 1) || (valorDoDado == 6)){
+		} else if((valorDoDado == 1) || (valorDoDado == 6)){ // verificação para valor 1 ou 6 do dado para retirar uma peça do cemitério
+			//só ocorrerá se NENHUMA peça tiver sido retirada do cemitério
 				tabuleiro[6][0] = "1";
 				tabuleiro[3][3] = "+";
 				System.out.println("");
@@ -268,8 +278,8 @@ public class Prova {
 			JOptionPane.showMessageDialog(null, "Número diferente de 1 ou 6");
 			JOptionPane.showMessageDialog(null, "Próximo Jogador");
 		}
-	
-					
+
+		//o mesmo se repete com as outras peças
 		JOptionPane.showMessageDialog(null, "Jogador 2");
 		JOptionPane.showMessageDialog(null, "Jogar Dado");
 		valorDoDado = random.nextInt(6) + 1;
@@ -408,6 +418,7 @@ public class Prova {
 		}
 		
 		tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]] = "1";
+		//será inserido o valor 1 na posição final da movimentação
 		
 	} else if(tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]].equals("3")){
 		//caso a peça 1 caia em cima da peça 3
