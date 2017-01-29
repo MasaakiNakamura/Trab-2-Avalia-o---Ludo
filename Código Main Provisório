@@ -407,6 +407,9 @@ public class Prova {
 		
 	if(tabuleiro[movimentacaoExterna1[0][contadorDeMovimentos1]][movimentacaoExterna1[1][contadorDeMovimentos1]].equals("2")){ 
 		//caso a peça 1 caia em cima da peça 2
+		//movimentação externa é a matriz que representa a movimentação das peças. A primeira linha (movimentacaoExterna [0]) dessa matriz representa
+		//as linhas (i) do tabuleiro e a segunda linha dessa matriz (movimentacaoExterna[1] representa as colunas [j] do tabuleiro
+		//contador de movimentos é um vetor que representa as coluna da matriz de movimentos (movimentacaoExterna).
 		
 		for(i = 0; i < 2; i++){
 			for(j = 0; j < 2; j++){
